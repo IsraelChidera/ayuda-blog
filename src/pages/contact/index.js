@@ -1,115 +1,127 @@
 import * as React from "react";
+import {useState} from 'react';
 import { navigate } from "gatsby-link";
-import Layout from "../../components/Layout";
+import PaystackPop from '@paystack/inline-js';
+import Layout from '../../components/Layout';
 
-function encode(data) {
-  return Object.keys(data)
-    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&");
-}
+const Index = () => {
+    const [email, setEmail]= useState("");
+    const [amount, setAmount] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastName] = useState(""); 
 
-export default class Index extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { isValidated: false };
-  }
+    const payWithPaystack = (e) => {
+        e.preventDefault();
+        const paystack = new PaystackPop();
+        paystack.newTransaction({
+            key:"pk_test_131cda27a7f3959aa195063b755e392acc385460",
+            amount:amount*100,
+            // currency: 'USD',
+            email,
+            firstname,
+            lastname,      
+            onSuccess(transaction){
+                let message = `Payment Complete! Reference ${transaction.reference}`
+                alert(message);
+                setEmail("");
+                setAmount("");
+                setFirstname("");
+                setLastName("");
+            },
+            onCancel(){
+                alert("You have canceled the transaction")
+            }
+        })
+    }
 
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({
-        "form-name": form.getAttribute("name"),
-        ...this.state,
-      }),
-    })
-      .then(() => navigate(form.getAttribute("action")))
-      .catch((error) => alert(error));
-  };
-
-  render() {
     return (
       <Layout>
-        <section className="section">
-          <div className="container">
-            <div className="content">
-              <h1>Contact</h1>
-              <form
-                name="contact"
-                method="post"
-                action="/contact/thanks/"
-                data-netlify="true"
-                data-netlify-honeypot="bot-field"
-                onSubmit={this.handleSubmit}
-              >
-                {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
-                <input type="hidden" name="form-name" value="contact" />
-                <div hidden>
-                  <label>
-                    Don’t fill this out:{" "}
-                    <input name="bot-field" onChange={this.handleChange} />
-                  </label>
-                </div>
-                <div className="field">
-                  <label className="label" htmlFor={"name"}>
-                    Your name
-                  </label>
-                  <div className="control">
-                    <input
-                      className="input"
-                      type={"text"}
-                      name={"name"}
-                      onChange={this.handleChange}
-                      id={"name"}
-                      required={true}
-                    />
-                  </div>
-                </div>
-                <div className="field">
-                  <label className="label" htmlFor={"email"}>
-                    Email
-                  </label>
-                  <div className="control">
-                    <input
-                      className="input"
-                      type={"email"}
-                      name={"email"}
-                      onChange={this.handleChange}
-                      id={"email"}
-                      required={true}
-                    />
-                  </div>
-                </div>
-                <div className="field">
-                  <label className="label" htmlFor={"message"}>
-                    Message
-                  </label>
-                  <div className="control">
-                    <textarea
-                      className="textarea"
-                      name={"message"}
-                      onChange={this.handleChange}
-                      id={"message"}
-                      required={true}
-                    />
-                  </div>
-                </div>
-                <div className="field">
-                  <button className="button is-link" type="submit">
-                    Send
-                  </button>
-                </div>
-              </form>
-            </div>
+        <section className='pt-20 px-8 lg:px-64 pb-20'>
+
+          <div>
+              <h1 className='text-4xl md:text-center'>
+                  Checkout
+              </h1>            
           </div>
+
+          <div className='md:mt-10 mt-6 md:flex justify-between items-center'>
+              <p className='text-lg'>
+                  8 articles per month
+              </p>
+
+              <p className='font-semibold'>
+                  Total: {" "}
+                  <span>
+                      $84
+                  </span>
+              </p>
+          </div>
+
+          <div className='mt-10 p-2  text-darker'>
+              <form id="paymentForm" className='space-y-6'>
+                  <div className="form-group">
+                      <label for="email">Email Address</label>
+                      <input 
+                          type="email" 
+                          id="email-address" 
+                          value={email}
+                          onChange={(e)=>setEmail(e.target.value)}
+                          required 
+                          className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" 
+                      />
+                  </div>
+
+                  <div className="form-group">
+                      <label for="amount">Amount</label>
+                      <input 
+                          type="tel" 
+                          id="amount" 
+                          value={amount}
+                          onChange={(e)=>setAmount(e.target.value)}
+                          required 
+                          className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" 
+                      />
+                  </div>
+
+                  <div className="form-group">
+                      <label for="first-name">First Name</label>
+                      <input 
+                          type="text" 
+                          id="first-name" 
+                          value={firstname}
+                          className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" 
+                          onChange={(e)=>setFirstname(e.target.value)}
+                      />
+                  </div>
+
+                  <div className="form-group">
+                      <label for="last-name">Last Name</label>
+                      <input 
+                          type="text" 
+                          id="last-name" 
+                          value={lastname}
+                          className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" 
+                          onChange={(e)=>setLastName(e.target.value)}
+                      />
+                  </div>
+
+                  <div className="form-submit">
+                      <button 
+                          type="submit" 
+                          onClick={payWithPaystack}
+                          className="px-6 py-3 text-sm             
+                              font-semibold rounded-full border 
+                              border-purple-200 bg-primary text-white"
+                      > 
+                          Pay
+                      </button>
+                  </div>
+              </form>
+          </div>
+
         </section>
       </Layout>
-    );
-  }
+    )
 }
+
+export default Index
