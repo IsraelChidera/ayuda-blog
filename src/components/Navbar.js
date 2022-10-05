@@ -12,11 +12,9 @@ const Navbar = () => {
 
 return (
   <nav className='flex pt-4 pb-2 justify-around lg:justify-between mx-0 lg:mx-32 px-4 lg:px-32 items-center'>
-      <p className='text-lg'>
-          <Link to="/">
-              <span className='italic font-bold text-primary'>Ayuda</span>content
-          </Link>            
-      </p>
+    <Link to="/">
+        <span className='italic font-bold text-primary'>Ayuda</span>content
+    </Link> 
 
       <div             
           className={`hidden lg:flex justify-center items-center`}
@@ -33,13 +31,7 @@ return (
             </Link>
             <Link className="navbar-item" to="/blog">
               Blog
-            </Link>
-            {/* <Link className="navbar-item" to="/contact">
-              Contact
-            </Link> */}
-            {/* <Link className="navbar-item" to="/contact/examples">
-              Form Examples
-            </Link>                 */}
+            </Link>            
           </ul>            
       </div>
 
