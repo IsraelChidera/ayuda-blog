@@ -12,15 +12,14 @@ import activityicon from '../img/activityicon.png';
 import hearticon from '../img/hearticon.png';
 import workicon from '../img/workicon.png';
 import '../styles/global.css';
-// import AOS from 'aos';
-// import 'aos/dist/aos.css';
+
 
 // eslint-disable-next-line
 export const IndexPageTemplate = ({
   image,
 }) => {
   const heroImage = getImage(image) || image;
-  // AOS.init();
+
 
   return (
     <div>
