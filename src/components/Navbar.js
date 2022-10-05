@@ -1,7 +1,5 @@
 import React, {useState} from "react";
 import { Link } from "gatsby";
-import github from "../img/github-icon.svg";
-import logo from "../img/logo.svg";
 import bars from '../img/bars.png';
 import cancel from '../img/cancel.png';
 
@@ -13,7 +11,7 @@ const Navbar = () => {
   }
 
 return (
-  <nav className='flex pt-4 pb-2 justify-around lg:justify-between px-4 lg:px-32 items-center'>
+  <nav className='flex pt-4 pb-2 justify-around lg:justify-between mx-0 lg:mx-32 px-4 lg:px-32 items-center'>
       <p className='text-lg'>
           <Link to="/">
               <span className='italic font-bold text-primary'>Ayuda</span>content
@@ -48,13 +46,13 @@ return (
       <div 
           className="lg:block hidden"
       >
-          <Link to="/plans-pricing">
+          <Link to="/products">
               <button 
                   className="px-6 py-3 text-white text-sm             
                   font-semibold rounded-full border 
                   border-purple-200 bg-primary"
               >
-              Get Started
+                Get Started
               </button>
           </Link> 
       </div>
@@ -70,32 +68,30 @@ return (
                       className='space-y-8 text-center'              
                       style={{fontSize:'42px'}}    
                   >
-                      <div 
-                          className='cursor-pointer mb-6 flex justify-center items-center'                             
-                      >
-                          <img
-                              src={cancel}
-                              alt="cancel icon"
-                              className='text-center'
-                              onClick={()=>setOpenMobileMenu(false)}  
-                          />            
-                      </div>
+                    <div 
+                        className='cursor-pointer mb-6 flex justify-center items-center'                             
+                    >
+                      <img
+                        src={cancel}
+                        alt="cancel icon"
+                        className='text-center'
+                        onClick={()=>setOpenMobileMenu(false)}  
+                      />            
+                    </div>
 
-                      <Link className="navbar-item" to="/about">
-              About
-            </Link>
-            <Link className="navbar-item" to="/products">
-              Products
-            </Link>
-            <Link className="navbar-item" to="/blog">
-              Blog
-            </Link>
-            <Link className="navbar-item" to="/contact">
-              Contact
-            </Link>
-            <Link className="navbar-item" to="/contact/examples">
-              Form Examples
-            </Link>
+                    <Link to="/">
+                      <span className='italic font-bold text-primary'>Ayuda</span>content
+                  </Link> 
+
+                    <Link className="navbar-item" to="/about">
+                      About
+                    </Link>
+                    <Link className="navbar-item" to="/products">
+                      Products
+                    </Link>
+                    <Link className="navbar-item" to="/blog">
+                      Blog
+                    </Link>
                   </ul>
               </div>
 

@@ -239,7 +239,7 @@ export const IndexPageTemplate = ({
                       How it works
                   </p>  
 
-                  <Link to="plans-pricing">
+                  <Link to="/products">
                       <button className='underline decoration-solid hover:no-underline'>
                           See pricing <span>
                           <i class="fa-solid fa-arrow-right"></i>    
