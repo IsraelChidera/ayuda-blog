@@ -1,12 +1,9 @@
-import React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import { Link, graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
 
 import Layout from "../components/Layout";
-import Features from "../components/Features";
-import BlogRoll from "../components/BlogRoll";
-import FullWidthImage from "../components/FullWidthImage";
 import heroimage from '../img/heroimage.png';
 import completedicon from '../img/completedicon.png';
 import ratingicon from '../img/ratingicon.png';
@@ -21,12 +18,6 @@ import '../styles/global.css';
 // eslint-disable-next-line
 export const IndexPageTemplate = ({
   image,
-  title,
-  heading,
-  subheading,
-  mainpitch,
-  description,
-  intro, 
 }) => {
   const heroImage = getImage(image) || image;
   // AOS.init();
